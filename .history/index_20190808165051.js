@@ -19,5 +19,5 @@ const server = http.createServer((req, res) => {
   res.end('Not Found');
 });
 server.listen(config.port, config.hostname, () => {
-  console.log(`Server running at <a href="http://${config.hostname}:${config.port}/api/text`);
+  console.log(`Server running at <a href="http://${config.hostname}:${config.port}/`);
 });

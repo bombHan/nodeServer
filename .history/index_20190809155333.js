@@ -4,7 +4,14 @@ const config = require('./config');
 const Route = require('./route');
 const util = require('./util');
 const  fs =require('fs') ;
+// let user = '';
+//   fs.readFile("./return/user.json",'utf-8',function(err, data) {
+//     // console.log(data,typeof(data))
+//     user = data
+//   });
 const server = http.createServer((req, res) => {
+  let user = require('./return/user.json');
+  console.log(JSON.stringify(user), typeof(user))
   let method = req.method;
   let url = nUrl.parse(req.url);
   console.log(method, url.pathname)
@@ -22,7 +29,7 @@ const server = http.createServer((req, res) => {
       if (req.method === 'POST') {
         const body = (Buffer.concat(arr)).toString('utf8');
         // const rbody = util.getBody(body); // 用postman的form-data传参的时候需要这样解析
-        res.end(matchRoute.result(body));
+        res.end(matchRoute.result(body,JSON.stringify(user)));
         // res.end(body)
       } else {
         res.end(matchRoute.result);

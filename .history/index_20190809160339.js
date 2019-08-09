@@ -5,6 +5,8 @@ const Route = require('./route');
 const util = require('./util');
 const  fs =require('fs') ;
 const server = http.createServer((req, res) => {
+  // let user = require('./return/user.json');
+  // console.log(JSON.stringify(user), typeof(user))
   let method = req.method;
   let url = nUrl.parse(req.url);
   console.log(method, url.pathname)

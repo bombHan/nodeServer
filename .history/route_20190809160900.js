@@ -50,7 +50,6 @@ exports = module.exports = [
       })
       console.log(list)
       fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
-      user = JSON.stringify({list, index});
       return JSON.stringify({list});
     }
   }

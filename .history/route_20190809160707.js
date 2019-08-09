@@ -31,7 +31,7 @@ exports = module.exports = [
       });
       console.log(list)
       fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
-      user = JSON.stringify({list, index});
+      user = JSON.stringify(require('./return/user.json'));
       console.log(user)
       return JSON.stringify({list});
     }
@@ -50,7 +50,6 @@ exports = module.exports = [
       })
       console.log(list)
       fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
-      user = JSON.stringify({list, index});
       return JSON.stringify({list});
     }
   }

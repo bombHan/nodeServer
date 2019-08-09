@@ -1,6 +1,4 @@
 const  fs =require('fs') ;
-let user = JSON.stringify(require('./return/user.json'));
-// console.log(JSON.stringify(user), typeof(user))
 exports = module.exports = [
   {
     method: 'GET',
@@ -11,16 +9,14 @@ exports = module.exports = [
     method: 'POST',
     path: '/api/user',
     headers: 'application/json',
-    result: (body) => {
-      // let user = JSON.stringify(require('./return/user.json'));
+    result: (body, user) => {
       return user;
     }
   },{
     method: 'POST',
     path: '/api/user/add',
     headers: 'application/json',
-    result: (body) => {
-      // let user = JSON.stringify(require('./return/user.json'));
+    result: (body, user) => {
       console.log(user);
       let list = (JSON.parse(user)).list;
       let index =  (JSON.parse(user)).index + 1;
@@ -31,16 +27,13 @@ exports = module.exports = [
       });
       console.log(list)
       fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
-      user = JSON.stringify({list, index});
-      console.log(user)
       return JSON.stringify({list});
     }
   },{
     method: 'POST',
     path: '/api/user/delete',
     headers: 'application/json',
-    result: (body) => {
-      // let user = JSON.stringify(require('./return/user.json'));
+    result: (body, user) => {
       console.log(user);
       let list = (JSON.parse(user)).list;
       let index =  (JSON.parse(user)).index;
@@ -50,7 +43,6 @@ exports = module.exports = [
       })
       console.log(list)
       fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
-      user = JSON.stringify({list, index});
       return JSON.stringify({list});
     }
   }

@@ -6,11 +6,9 @@ const util = require('./util');
 const server = http.createServer((req, res) => {
   let method = req.method;
   let url = nUrl.parse(req.url);
-  console.log(method, url.pathname)
   let matchRoute = Route.find((item) => {
     return item.method === method && item.path === url.pathname;
   })
-  console.log(matchRoute)
   if (matchRoute) {
     res.statusCode = 200;
     res.setHeader('Content-Type', matchRoute.headers);

@@ -6,11 +6,9 @@ const util = require('./util');
 const server = http.createServer((req, res) => {
   let method = req.method;
   let url = nUrl.parse(req.url);
-  console.log(method, url.pathname)
   let matchRoute = Route.find((item) => {
     return item.method === method && item.path === url.pathname;
   })
-  console.log(matchRoute)
   if (matchRoute) {
     res.statusCode = 200;
     res.setHeader('Content-Type', matchRoute.headers);
@@ -21,7 +19,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       if (req.method === 'POST') {
         const body = (Buffer.concat(arr)).toString('utf8');
-        // const rbody = util.getBody(body); // 用postman的form-data传参的时候需要这样解析
+        const rbody = util.getBody(body); // 用postman的form-data传参的时候需要这样解析
         res.end(matchRoute.result(body));
         // res.end(body)
       } else {

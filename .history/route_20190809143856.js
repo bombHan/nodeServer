@@ -14,23 +14,15 @@ exports = module.exports = [{
     path: '/api/user',
     headers: 'application/json',
     result: (body) => {
-      return user;
-    }
-  },{
-    method: 'POST',
-    path: '/api/user/add',
-    headers: 'application/json',
-    result: (body) => {
       console.log(user);
-      let list = (JSON.parse(user)).list;
-      let index =  (JSON.parse(user)).index + 1;
-      let addObj = JSON.parse(body);
+      let list = (JSON.parse(user)).list
       list.push({
-        ...addObj,
-        id: index
+        name: 'test',
+        age: 28
       });
       console.log(list)
-      fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
-      return JSON.stringify({list});
+      fs.writeSync(__dirname+'/return/user.json',JSON.stringify({list}));
+      return JSON.stringify({list})
+      // return body;
     }
   }];

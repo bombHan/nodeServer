@@ -21,6 +21,7 @@ const server = http.createServer((req, res) => {
         const body = (Buffer.concat(arr)).toString('utf8');
         const rbody = util.getBody(body); // 用postman的时候需要这样解析
         res.end(body)
+        res.end(matchRoute.result);
       } else {
         res.end(matchRoute.result);
       }

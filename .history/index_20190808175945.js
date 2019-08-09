@@ -2,7 +2,7 @@ const http = require('http');
 const nUrl = require('url');
 const config = require('./config');
 const Route = require('./route');
-const util = require('./util');
+const querystring = require("querystring");
 const server = http.createServer((req, res) => {
   let method = req.method;
   let url = nUrl.parse(req.url);
@@ -17,13 +17,24 @@ const server = http.createServer((req, res) => {
       arr.push(c);
     })
     req.on('end', () => {
-      if (req.method === 'POST') {
-        const body = (Buffer.concat(arr)).toString('utf8');
-        const rbody = util.getBody(body);
-        res.end(JSON.stringify(rbody))
-      } else {
-        res.end(matchRoute.result);
-      }
+      const body = (Buffer.concat(arr)).toString('utf8')
+      let rqs = body.split(';');
+      rqs = rqs.filter((item, index) => {return index>0});
+      let name = [];
+      let value = [];
+      rqs.forEach((item) => {
+        let arr = item.split('\n\n');
+        name.push(arr[0]);
+        value.push(arr[1]);
+      });
+      name = name.map((item) => {return (item.split("="))[1]})
+      value = value.map((item) => {return (item.split("\n"))[0]})
+      let body = {};
+      name.forEach((item, index) => {
+        body[item] = value[index]
+      });
+      console.log(rqs, name, value, body)
+      res.end(matchRoute.result);
     })
     return;
   }

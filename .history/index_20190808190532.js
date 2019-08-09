@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
       if (req.method === 'POST') {
         const body = (Buffer.concat(arr)).toString('utf8');
         const rbody = util.getBody(body);
-        res.end(JSON.stringify(rbody))
+        // res.end(JSON.stringify(rbody))
       } else {
         res.end(matchRoute.result);
       }

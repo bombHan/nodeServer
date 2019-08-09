@@ -2,7 +2,6 @@ const http = require('http');
 const nUrl = require('url');
 const config = require('./config');
 const Route = require('./route');
-const util = require('./util');
 const server = http.createServer((req, res) => {
   let method = req.method;
   let url = nUrl.parse(req.url);
@@ -12,18 +11,14 @@ const server = http.createServer((req, res) => {
   if (matchRoute) {
     res.statusCode = 200;
     res.setHeader('Content-Type', matchRoute.headers);
-    let arr = []
+    res.end(matchRoute.result);
+//     console.log(req.httpVersion);
+//     console.log(req.headers);
+//     console.log(req.method);
+//     console.log(req.url);
+//     console.log(req.trailers);
     req.on('data', (c) => {
-      arr.push(c);
-    })
-    req.on('end', () => {
-      if (req.method === 'POST') {
-        const body = (Buffer.concat(arr)).toString('utf8');
-        const rbody = util.getBody(body);
-        res.end(JSON.stringify(rbody))
-      } else {
-        res.end(matchRoute.result);
-      }
+      console.log(Buffer.concat([c]), Buffer.concat([c]).toString('utf8'))
     })
     return;
   }

@@ -28,6 +28,17 @@ exports = module.exports = [
     path: '/api/user/delete',
     headers: 'application/json',
     result: (body) => {
+      // console.log(user);
+      // let list = (JSON.parse(user)).list;
+      // let index =  (JSON.parse(user)).index;
+      // let deleteObj = JSON.parse(body);
+      // list = list.filter((item) => {
+      //   return item.id !== deleteObj.id
+      // })
+      // console.log(list)
+      // fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
+      // user = JSON.stringify({list, index});
+      // return JSON.stringify({list});
       const userObj = userFun.deleteUser(body, user);
       user = JSON.stringify(userObj);
       return JSON.stringify({list: userObj.list});
@@ -37,9 +48,23 @@ exports = module.exports = [
     path: '/api/user/edit',
     headers: 'application/json',
     result: (body) => {
-      const userObj = userFun.editUser(body, user);
-      user = JSON.stringify(userObj);
-      return JSON.stringify({list: userObj.list});
+      console.log(user);
+      let list = (JSON.parse(user)).list;
+      let index =  (JSON.parse(user)).index;
+      let editObj = JSON.parse(body);
+      list = list.map((item) => {
+        if (item.id === editObj.id) {
+          item = {
+            ...item,
+            ...editObj
+          }
+        }
+        return item;
+      })
+      console.log(list)
+      fs.writeFileSync(__dirname+'/return/user.json',JSON.stringify({list, index}));
+      user = JSON.stringify({list, index});
+      return JSON.stringify({list});
     }
   }
 ];

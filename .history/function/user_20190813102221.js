@@ -60,10 +60,7 @@ function findUser(body, user) {
     let keyObj = body && JSON.parse(body);
     if (keyObj && keyObj.key) {
         list = list.filter((item) => {
-            const idF =  (item.id.toString()).includes(keyObj.key)
-            const nameF =   (item.name).includes(keyObj.key)
-            console.log(idF, nameF)
-            return idF || nameF;
+            return (item.id).includes(keyObj.key) ||  (item.name).includes(keyObj.key);
         })
     }
     return JSON.stringify({list});

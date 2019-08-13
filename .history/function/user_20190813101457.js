@@ -57,13 +57,10 @@ function editUser(body, user) {
 
 function findUser(body, user) {
     let list = (JSON.parse(user)).list;
-    let keyObj = body && JSON.parse(body);
+    let keyObj = JSON.parse(body);
     if (keyObj && keyObj.key) {
         list = list.filter((item) => {
-            const idF =  (item.id.toString()).includes(keyObj.key)
-            const nameF =   (item.name).includes(keyObj.key)
-            console.log(idF, nameF)
-            return idF || nameF;
+            return item.id === keyObj.key || item.name === keyObj.key;
         })
     }
     return JSON.stringify({list});

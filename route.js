@@ -42,5 +42,35 @@ exports = module.exports = [
       user = JSON.stringify(userObj);
       return JSON.stringify({list: userObj.list});
     }
+  },{
+    method: 'POST',
+    path: '/api/main',
+    headers: 'application/json',
+    result: (body) => {
+      if (JSON.parse(body).path === 'findUser') {
+        const listJson = userFun.findUser(body, user);
+        return JSON.stringify(
+          {
+            ...JSON.parse(listJson),
+            code: 200
+          }
+        );
+      } else if (JSON.parse(body).path === 'addUser') {
+        const userObj = userFun.addUser(body, user);
+        user = JSON.stringify(userObj);
+        return JSON.stringify({list: userObj.list, code: 200, message: '添加成功'});
+      } else if (JSON.parse(body).path === 'deleteUser') {
+        const userObj = userFun.deleteUser(body, user);
+        user = JSON.stringify(userObj);
+        return JSON.stringify({list: userObj.list, code: 200, message: '删除成功'});
+      } else {
+        return JSON.stringify(
+          {
+            message: '地址有误',
+            code: 404
+          }
+        )
+      }
+    }
   }
 ];

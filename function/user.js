@@ -1,5 +1,6 @@
 const  fs =require('fs') ;
 const path = require('path');
+const moment = require('moment')
 const ROOT_PATH = path.resolve(__dirname, '../');
 // console.log(__dirname, ROOT_PATH ,ROOT_PATH + '/return/user.json')
 function addUser(body, user) {
@@ -8,8 +9,10 @@ function addUser(body, user) {
     let index =  (JSON.parse(user)).index + 1;
     let addObj = JSON.parse(body);
     list.push({
-    ...addObj,
-    id: index
+        name: addObj.name,
+        age: addObj.age,
+        joinTime:  moment().format('YYYY-MM-DD HH:mm:ss'),
+        id: index
     });
     console.log(list)
     fs.writeFileSync(ROOT_PATH + '/return/user.json',JSON.stringify({list, index}));

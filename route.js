@@ -1,7 +1,7 @@
 const  fs =require('fs') ;
 let user = JSON.stringify(require('./return/user.json'));
 const userFun = require('./function/user');
-exports = module.exports = [
+const users =  [
   {
     method: 'GET',
     path: '/api/text',
@@ -74,3 +74,7 @@ exports = module.exports = [
     }
   }
 ];
+
+const platform = require('./routes/platformRoutes');
+
+exports = module.exports = [...users, ...platform];
